@@ -12,6 +12,7 @@ const parkSchema = new mongoose.Schema({
   states: { type: String, required: true },
   latLong: { type: String },
   entranceFee: { type: [String] },
+  image: { type: String },
   favoriteUsers: { type: [Schema.Types.ObjectId], ref: "User" },
   tripsPlanned: { type: [Schema.Types.ObjectId], ref: "Trip" },
   comment: { type: [commentSchema] },

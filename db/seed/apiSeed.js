@@ -22,6 +22,7 @@ const seed = async () => {
           Array.isArray(park.entranceFees) && park.entranceFees.length > 0
             ? park.entranceFees.map((fee) => fee.cost || 0)
             : ["0.00"],
+        image: park.images[0].url,
       };
       bulkParks.push(parkData);
     });
