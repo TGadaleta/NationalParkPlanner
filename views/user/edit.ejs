@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <%- include('../partials/nav.ejs') %>
+  <h1>Edit User </h1>
+  <form action="/user/<%= user._id %>?_method=PUT" method="POST">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" value="<%= user.username %>" disabled required />
+    <label for="email">E-mail</label>
+    <input type="email" name="email" id="email" value='<%= user.email %>' required />
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required />
+    <label for="newPassword">New Password:</label>
+    <input type="password" name="newPassword" id="newPassword" />
+    <label for="confirmPassword">Confirm New Password:</label>
+    <input type="password" name="confirmNewPassword" id="confirmNewPassword" />
+    <button type="submit">Update User</button>
+  </form>
+</body>
+
+</html>
