@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <%- include('../partials/nav.ejs') %>
+  <h1>All National Parks</h1>
+  <div>
+    <ul>
+      <% parks.forEach((park) => { %>
+      <li>
+        <a href="/parks/<%= park._id %>"><%= park.name %></a>
+        <span><%= park.designation %></span><span><%= park.states %></span><span><%= park.entranceFee[0] %></span>
+      </li>
+      <% }) %>
+    </ul>
+  </div>
+</body>
+
+</html>

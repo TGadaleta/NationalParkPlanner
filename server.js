@@ -8,6 +8,7 @@ import isSignedIn from "./middleware/is-signed-in.js";
 import passUserToView from "./middleware/pass-user-to-view.js";
 import authController from "./controllers/auth.js";
 import userController from "./controllers/user.js";
+import parksController from "./controllers/parks.js"
 
 dotenv.config();
 const app = express();
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", authController);
 app.use("/user", userController);
+app.use("/parks", parksController);
 
 app.listen(port, () => {
   console.log(`The express app is ready on http://localhost:${port}`);
