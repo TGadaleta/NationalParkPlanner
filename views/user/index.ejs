@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('../partials/nav.ejs') %>
+    <h1>Welcome <%= user.username %></h1>
+    <div class="container" id="plannedTrips" style="border: 1px solid black">Planned Trips
+        <% if (user.plannedTrips.length <= 0) { %>
+            <p>You have no planned trips. Click on My Trips to create one.</p>
+        <% } else {} %>
+    </div>
+    <div class="container" id="favoriteParks" style="border: 1px solid black">Favorite Parks
+        <% if (user.favoriteParks.length <= 0) { %>
+            <p>You have no favorite Parks. Click on Parks to view all parks.</p>
+        <% } else {} %>
+    </div>
+</body>
+</html>
