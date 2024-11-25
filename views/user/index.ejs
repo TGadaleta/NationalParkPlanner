@@ -17,7 +17,7 @@
     <% } else {} %>
   </div>
   <div class="container" id="favoriteParks" style="border: 1px solid black">Favorite Parks
-    <% if (user.favoriteParks.length <= 0) { %>
+    <% if (favoriteParks.favoriteParks.length === 0) { %>
     <p>You have no favorite Parks. Click on Parks to view all parks.</p>
     <% } else { %>
     <% favoriteParks.favoriteParks.forEach((park) => { %>

@@ -5,6 +5,7 @@ import User from "../models/user.js";
 const router = express.Router();
 
 //GET
+//get list of all parks
 router.get("/", async (req, res) => {
   try {
     const allParks = await Park.find({});
@@ -15,8 +16,8 @@ router.get("/", async (req, res) => {
   }
 });
 
+//get single park
 router.get("/:parkId", async (req, res) => {
-  //Logic for sending single park info to ejs
   try {
     const park = await Park.findById(req.params.parkId);
     res.render("parks/park.ejs", { park: park });
@@ -27,12 +28,13 @@ router.get("/:parkId", async (req, res) => {
 });
 
 //POST
+//add park to user's favorites
 router.post("/:parkId/:userId", async (req, res) => {
   try {
     const currentUser = await User.findById(req.params.userId)
     currentUser.favoriteParks.push(req.params.parkId)
     await currentUser.save();
-    res.redirect(`/user/${currentUser._id}`)
+    res.redirect(`/user/${req.params.userId}`)
   } catch (error) {
     console.error(error);
     res
@@ -42,6 +44,7 @@ router.post("/:parkId/:userId", async (req, res) => {
 });
 
 //DELETE
+//delete park from user's favorites
 router.delete("/:parkId/:userId", async (req, res) => {
   try {
     const currentUser = await User.findById(req.params.userId);
