@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <%- include('../partials/nav.ejs') %>
+  <h1><%= park.name %></h1>
+  <form action="/parks/:parkId/:userId" method="POST">
+    <input type="submit" value="Add to Favorties">
+  </form>
+  <h5><%= park.designation %></h5>
+  <h5><%= park.description %></h5>
+  <h5>Latatuide and Longitude: <%= park.latLong %></h5>
+  <h5>States: <%= park.states %></h5>
+  <h5>Entrance Fee: $<%= park.entranceFee[0] %></h5>
+  <% if (park.image) { %>
+  <img src="<%= park.image %>" alt="Park Image" style="width: 100%; height: auto;" />
+  <% } %>
+</body>
+
+</html>

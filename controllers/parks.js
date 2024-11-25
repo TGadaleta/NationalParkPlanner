@@ -13,4 +13,16 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.get('/:parkId', async (req, res) => {
+    const park = await Park.findById(req.params.parkId)
+    //Logic for sending single park info to ejs
+    try {
+        console.log(park);
+        res.render('parks/park.ejs', {park: park})
+    } catch (error) {
+        console.error(error)
+        res.status(500).send('There was a problem getting the park.')
+    }
+})
+
 export default router

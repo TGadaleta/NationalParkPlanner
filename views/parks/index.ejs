@@ -15,7 +15,7 @@
       <% parks.forEach((park) => { %>
       <li>
         <a href="/parks/<%= park._id %>"><%= park.name %></a>
-        <span><%= park.designation %></span><span><%= park.states %></span><span><%= park.entranceFee[0] %></span>
+        <span><%= park.designation %></span><span><%= park.states %></span><span><%= park.entranceFee %></span>
       </li>
       <% }) %>
     </ul>

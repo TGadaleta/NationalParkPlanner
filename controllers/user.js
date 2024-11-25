@@ -9,7 +9,7 @@ router.use(methodOverride("_method"));
 
 router.get("/:userId", (req, res) => {
   try {
-    res.render("user/index.ejs", { user: req.session.user });
+    res.render("user/index.ejs");
   } catch (error) {
     console.error(error);
     res.status(500).send("There was an error getting your profile");
@@ -18,7 +18,7 @@ router.get("/:userId", (req, res) => {
 
 router.get("/:userId/edit", (req, res) => {
   try {
-    res.render("user/edit.ejs", { user: req.session.user });
+    res.render("user/edit.ejs");
   } catch (error) {
     console.error(error);
     res.status(500).send("There was an error getting the form");
@@ -40,7 +40,7 @@ router.put("/:userId", async (req, res) => {
         currentUser.password
     )
     if (!validPassword) {
-        return res.send('Old passwords do not match')
+        return res.send('Old password does not match.')
     }
 
     currentUser.email = req.body.email;

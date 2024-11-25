@@ -31,6 +31,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authController);
+app.use(passUserToView);
+app.use(isSignedIn);
 app.use("/user", userController);
 app.use("/parks", parksController);
 
