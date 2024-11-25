@@ -3,10 +3,13 @@ import methodOverride from "method-override";
 import bcrypt from "bcrypt"
 
 import User from "../models/user.js";
+import Trip from "../models/trip.js";
 const router = express.Router();
 
 router.use(methodOverride("_method"));
 
+//GET
+//get user home page
 router.get("/:userId", (req, res) => {
   try {
     res.render("user/index.ejs");
@@ -16,15 +19,37 @@ router.get("/:userId", (req, res) => {
   }
 });
 
+//get user edit form
 router.get("/:userId/edit", (req, res) => {
   try {
     res.render("user/edit.ejs");
   } catch (error) {
     console.error(error);
-    res.status(500).send("There was an error getting the form");
+    res.status(500).send("There was an error getting the edit form.");
   }
 });
 
+//get all user trips
+router.get("/:userId/trips", async (req, res) => {
+  try {
+    res.render('user/trips.ejs')
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("There was an error getting your trips.")
+  }
+})
+
+router.get('/:userId/trips/new', (req, res) => {
+  try {
+    res.render('user/newTrip.ejs')
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("There was an error getting the form.")
+  }
+})
+
+//PUT
+//update user information
 router.put("/:userId", async (req, res) => {
   try {
 
