@@ -19,7 +19,21 @@
   <div class="container" id="favoriteParks" style="border: 1px solid black">Favorite Parks
     <% if (user.favoriteParks.length <= 0) { %>
     <p>You have no favorite Parks. Click on Parks to view all parks.</p>
-    <% } else {} %>
+    <% } else { %>
+    <% favoriteParks.favoriteParks.forEach((park) => { %>
+    <ul>
+      <li>
+        <a href="/parks/<%= park._id %>"><%= park.name %> </a>
+        <span><%= park.designation %></span>
+        <span><%= park.states %></span>
+        <span><%= park.entranceFee[0] %></span>
+        <form action="/parks/<%= park._id %>/<%= user._id %>?_method=DELETE" method="POST">
+          <button type="submit">Remove Park</button>
+        </form>
+      </li>
+    </ul>
+    <% }) %>
+    <% } %>
   </div>
 </body>
 

@@ -29,10 +29,10 @@ router.get("/:parkId", async (req, res) => {
 //POST
 router.post("/:parkId/:userId", async (req, res) => {
   try {
-    const currentUser = await User.findById(req.params.userId);
-    currentUser.favoriteParks.push(req.params.parkId);
+    const currentUser = await User.findById(req.params.userId)
+    currentUser.favoriteParks.push(req.params.parkId)
     await currentUser.save();
-    res.redirect(`/user/${req.params.userId}`);
+    res.redirect(`/user/${currentUser._id}`)
   } catch (error) {
     console.error(error);
     res
@@ -48,7 +48,7 @@ router.delete("/:parkId/:userId", async (req, res) => {
     const removeIndex = currentUser.favoriteParks.indexOf(req.params.parkId);
     currentUser.favoriteParks.splice(removeIndex, 1);
     await currentUser.save();
-    res.redirect(`/parks/${req.params.parkId}`);
+    res.redirect(`/user/${req.params.userId}`);
   } catch (error) {
     console.error(error);
     res

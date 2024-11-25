@@ -10,7 +10,7 @@
 <body>
   <%- include('../partials/nav.ejs') %>
   <h1><%= park.name %></h1>
-  <form action="/parks/:parkId/:userId" method="POST">
+  <form action="/parks/<%= park._id %>/<%= user._id %>" method="POST">
     <input type="submit" value="Add to Favorties">
   </form>
   <h5><%= park.designation %></h5>

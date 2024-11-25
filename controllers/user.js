@@ -4,15 +4,17 @@ import bcrypt from "bcrypt"
 
 import User from "../models/user.js";
 import Trip from "../models/trip.js";
+import Park from "../models/park.js";
 const router = express.Router();
 
 router.use(methodOverride("_method"));
 
 //GET
 //get user home page
-router.get("/:userId", (req, res) => {
+router.get("/:userId", async (req, res) => {
   try {
-    res.render("user/index.ejs");
+    const favoriteParks = await User.findById(req.params.userId).select('favoriteParks').populate('favoriteParks')
+    res.render("user/index.ejs", {favoriteParks: favoriteParks});
   } catch (error) {
     console.error(error);
     res.status(500).send("There was an error getting your profile");
