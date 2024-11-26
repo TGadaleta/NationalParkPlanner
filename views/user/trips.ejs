@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+
 <body>
-    <%- include('../partials/nav.ejs') %>
-    <h1><%= user.username %> Trips</h1>
-    <a href="/user/<%= user._id %>/trips/new">Create a New Trip</a>
+  <%- include('../partials/nav.ejs') %>
+  <h1><%= user.username %> Trips</h1>
+  <a href="/user/<%= user._id %>/trips/new">Create a New Trip</a>
+  <div>
+    <ul>
+      <% plannedTrips.forEach((trip) => { %>
+      <li>
+        <a href="/user/<%= user._id %>/trips/<%= trip._id %>">Trip</a>
+        <span>Start Date: <%= trip.startDate %></span>to<span>End Date:<%= trip.endDate %></span>@<span><a href="/parks/<%= trip.park._id %>"><%= trip.park.name %></a></span><span>Cost: <%= trip.cost %></span>
+      </li>
+      <% }) %>
+    </ul>
+  </div>
 </body>
+
 </html>

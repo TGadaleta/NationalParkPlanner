@@ -12,16 +12,22 @@
   <h1>Welcome <%= user.username %></h1>
   <a href="/user/<%= user._id %>/edit">Edit User</a>
   <div class="container" id="plannedTrips" style="border: 1px solid black">Planned Trips
-    <% if (user.plannedTrips.length <= 0) { %>
+    <% if (plannedTrips.length === 0) { %>
     <p>You have no planned trips. Click on My Trips to create one.</p>
-    <% } else {} %>
+    <% } else { %>
+      <% plannedTrips.forEach((trip) => { %>
+        <li>
+        <a href="/user/<%= user._id %>/trips/<%= trip._id %>">Trip</a>
+        <span>Start Date: <%= trip.startDate %></span> to <span>End Date: <%= trip.endDate %></span><span><a href="/parks/<%= trip.park._id %>"><%= trip.park.name %></a></span><span>Cost: $<%= trip.cost %>.00</span>
+      </li>
+     <% }) %>
+   <% } %>
   </div>
   <div class="container" id="favoriteParks" style="border: 1px solid black">Favorite Parks
     <% if (favoriteParks.favoriteParks.length === 0) { %>
     <p>You have no favorite Parks. Click on Parks to view all parks.</p>
     <% } else { %>
     <% favoriteParks.favoriteParks.forEach((park) => { %>
-    <ul>
       <li>
         <a href="/parks/<%= park._id %>"><%= park.name %> </a>
         <span><%= park.designation %></span>
@@ -31,7 +37,6 @@
           <button type="submit">Remove Park</button>
         </form>
       </li>
-    </ul>
     <% }) %>
     <% } %>
   </div>

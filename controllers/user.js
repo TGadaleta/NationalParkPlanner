@@ -13,10 +13,15 @@ router.use(methodOverride("_method"));
 //get user home page
 router.get("/:userId", async (req, res) => {
   try {
+    const userId = req.params.userId;
     const favoriteParks = await User.findById(req.params.userId)
       .select("favoriteParks")
       .populate("favoriteParks");
-    res.render("user/index.ejs", { favoriteParks: favoriteParks });
+    const plannedTrips = await Trip.find({ userId }).populate("park");
+    res.render("user/index.ejs", {
+      favoriteParks: favoriteParks,
+      plannedTrips: plannedTrips,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send("There was an error getting your profile");
@@ -36,7 +41,9 @@ router.get("/:userId/edit", (req, res) => {
 //get all user trips
 router.get("/:userId/trips", async (req, res) => {
   try {
-    res.render("user/trips.ejs");
+    const userId = req.params.userId;
+    const plannedTrips = await Trip.find({ userId }).populate("park");
+    res.render("user/trips.ejs", { plannedTrips });
   } catch (error) {
     console.error(error);
     res.status(500).send("There was an error getting your trips.");
@@ -60,13 +67,18 @@ router.post("/:userId/trips", async (req, res) => {
     if (!userId) {
       return res.status(401).send("Unauthorized: User not logged in.");
     }
-    req.body.userId = userId
+    req.body.userId = userId;
     const park = await Park.findById(req.body.park);
     if (!park) {
-      return res.status(401).send("There was an error finding the park in the database.")
+      return res
+        .status(401)
+        .send("There was an error finding the park in the database.");
     }
     req.body.cost = Number(park.entranceFee[0]);
     const newTrip = await Trip.create(req.body);
+    const currentUser = await User.findById(userId);
+    currentUser.plannedTrips.push(newTrip);
+    currentUser.save();
     res.redirect(`/user/${userId}/trips`);
   } catch (error) {
     console.error(error);
@@ -82,7 +94,6 @@ router.put("/:userId", async (req, res) => {
     if (!userId) {
       return res.status(401).send("Unauthorized: User not logged in.");
     }
-
     const currentUser = await User.findById(userId);
 
     const validPassword = bcrypt.compareSync(
@@ -92,10 +103,8 @@ router.put("/:userId", async (req, res) => {
     if (!validPassword) {
       return res.send("Old password does not match.");
     }
-
     currentUser.email = req.body.email;
     req.session.user.email = currentUser.email;
-
     if (
       req.body.newPassword != "" &&
       req.body.newPassword === req.body.confirmNewPassword
@@ -104,7 +113,6 @@ router.put("/:userId", async (req, res) => {
       currentUser.password = hashedPassword;
     }
     await currentUser.save();
-
     res.redirect(`/user/${userId}`);
   } catch (error) {
     console.error(error);
