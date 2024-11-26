@@ -4,12 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title><%= user.username %>'s Trips</title>
 </head>
 
 <body>
   <%- include('../partials/nav.ejs') %>
-  <h1><%= user.username %> Trips</h1>
+  <h1><%= user.username %>'s Trips</h1>
   <a href="/user/<%= user._id %>/trips/new">Create a New Trip</a>
   <div>
       <% plannedTrips.forEach((trip) => { %>
