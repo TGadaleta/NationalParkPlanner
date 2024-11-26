@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit a Trip</title>
+</head>
+
+<body>
+  <%- include('../partials/nav.ejs') %>
+  <h1>Edit a Trip</h1>
+  <form action="/user/<%= user._id %>/trips/<%= trip._id %>?_method=PUT" method="POST">
+    <label for="startDate">Start Date</label>
+    <input type="date" name="startDate" id="startDate" value="<%= trip.startDate %>" required>
+    <label for="end-date-1">End Date</label>
+    <input type="date" name="endDate" id="endDate" value="<%= trip.endDate %>" required>
+    <label for="park">Park</label>
+    <select name="park" id="park" required>
+      <% parks.forEach(park => { %>
+      <option value="<%= park._id %>"<%= park._id.toString() === trip.park.toString() ? 'selected' : '' %>><%= park.name %></option> <!--Chat-GPT-->
+      <% }); %>
+    </select>
+    <button type="submit">Update</button>
+  </form>
+  <form action="/user/<%= user._id %>/trips/<%= trip._id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete</button>
+  </form>
+</body>
+
+</html>

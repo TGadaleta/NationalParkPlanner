@@ -18,7 +18,7 @@
       <% plannedTrips.forEach((trip) => { %>
         <li>
         <a href="/user/<%= user._id %>/trips/<%= trip._id %>">Trip</a>
-        <span>Start Date: <%= trip.startDate %></span> to <span>End Date: <%= trip.endDate %></span><span><a href="/parks/<%= trip.park._id %>"><%= trip.park.name %></a></span><span>Cost: $<%= trip.cost %>.00</span>
+        <span><%= trip.startDate %></span> to <span><%= trip.endDate %></span> @ <span><a href="/parks/<%= trip.park._id %>"><%= trip.park.name %></a></span><span> Cost: $<%= trip.cost %>.00</span>
       </li>
      <% }) %>
    <% } %>
