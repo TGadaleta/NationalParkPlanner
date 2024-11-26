@@ -31,10 +31,10 @@ router.get("/:parkId", async (req, res) => {
 //add park to user's favorites
 router.post("/:parkId/:userId", async (req, res) => {
   try {
-    const currentUser = await User.findById(req.params.userId)
-    currentUser.favoriteParks.push(req.params.parkId)
+    const currentUser = await User.findById(req.params.userId);
+    currentUser.favoriteParks.push(req.params.parkId);
     await currentUser.save();
-    res.redirect(`/user/${req.params.userId}`)
+    res.redirect(`/user/${req.params.userId}`);
   } catch (error) {
     console.error(error);
     res

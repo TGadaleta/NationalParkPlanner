@@ -64,13 +64,13 @@ router.get("/:userId/trips/new", async (req, res) => {
 router.get("/:userId/trips/:tripId", async (req, res) => {
   try {
     const parks = await Park.find({});
-    const trip = await Trip.findById(req.params.tripId)
-    res.render("user/editTrip.ejs", { parks, trip })
+    const trip = await Trip.findById(req.params.tripId);
+    res.render("user/editTrip.ejs", { parks, trip });
   } catch (error) {
-    console.error(error)
-    res.status(500).send("There was an error getting your trip.")
+    console.error(error);
+    res.status(500).send("There was an error getting your trip.");
   }
-})
+});
 
 //POST
 router.post("/:userId/trips", async (req, res) => {
@@ -135,27 +135,27 @@ router.put("/:userId", async (req, res) => {
 //update trip information
 router.put("/:userId/trips/:tripId", async (req, res) => {
   try {
-    const userId = req.params.userId
-    const trip = await Trip.findByIdAndUpdate(req.params.tripId, req.body)
-    await trip.save()
-    res.redirect(`/user/${userId}/trips`)
+    const userId = req.params.userId;
+    const trip = await Trip.findByIdAndUpdate(req.params.tripId, req.body);
+    await trip.save();
+    res.redirect(`/user/${userId}/trips`);
   } catch (error) {
-    console.error(error)
-    res.status(500).send("There was an error updating your trip.")
+    console.error(error);
+    res.status(500).send("There was an error updating your trip.");
   }
-})
+});
 
 //DELETE
 //Delete Trip
-router.delete("/:userId/trips/:tripId", async(req, res) => {
+router.delete("/:userId/trips/:tripId", async (req, res) => {
   try {
-    const userId = req.params.userId
-    await Trip.findByIdAndDelete(req.params.tripId)
-    res.redirect(`/user/${userId}/trips`)
+    const userId = req.params.userId;
+    await Trip.findByIdAndDelete(req.params.tripId);
+    res.redirect(`/user/${userId}/trips`);
   } catch (error) {
-    console.error(error)
-    res.status(500).send("There was an error deleting your trip.")
+    console.error(error);
+    res.status(500).send("There was an error deleting your trip.");
   }
-})
+});
 
 export default router;

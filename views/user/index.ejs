@@ -15,28 +15,28 @@
     <% if (plannedTrips.length === 0) { %>
     <p>You have no planned trips. Click on My Trips to create one.</p>
     <% } else { %>
-      <% plannedTrips.forEach((trip) => { %>
-        <li>
-        <a href="/user/<%= user._id %>/trips/<%= trip._id %>">Trip</a>
-        <span><%= trip.startDate %></span> to <span><%= trip.endDate %></span> @ <span><a href="/parks/<%= trip.park._id %>"><%= trip.park.name %></a></span><span> Cost: $<%= trip.cost %>.00</span>
-      </li>
-     <% }) %>
-   <% } %>
+    <% plannedTrips.forEach((trip) => { %>
+    <li>
+      <a href="/user/<%= user._id %>/trips/<%= trip._id %>">Trip</a>
+      <span><%= trip.startDate %></span> to <span><%= trip.endDate %></span> @ <span><a href="/parks/<%= trip.park._id %>"><%= trip.park.name %></a></span><span> Cost: $<%= trip.cost %>.00</span>
+    </li>
+    <% }) %>
+    <% } %>
   </div>
   <div class="container" id="favoriteParks" style="border: 1px solid black">Favorite Parks
     <% if (favoriteParks.favoriteParks.length === 0) { %>
     <p>You have no favorite Parks. Click on Parks to view all parks.</p>
     <% } else { %>
     <% favoriteParks.favoriteParks.forEach((park) => { %>
-      <li>
-        <a href="/parks/<%= park._id %>"><%= park.name %> </a>
-        <span><%= park.designation %></span>
-        <span><%= park.states %></span>
-        <span><%= park.entranceFee[0] %></span>
-        <form action="/parks/<%= park._id %>/<%= user._id %>?_method=DELETE" method="POST">
-          <button type="submit">Remove Park</button>
-        </form>
-      </li>
+    <li>
+      <a href="/parks/<%= park._id %>"><%= park.name %> </a>
+      <span><%= park.designation %></span>
+      <span><%= park.states %></span>
+      <span><%= park.entranceFee[0] %></span>
+      <form action="/parks/<%= park._id %>/<%= user._id %>?_method=DELETE" method="POST">
+        <button type="submit">Remove Park</button>
+      </form>
+    </li>
     <% }) %>
     <% } %>
   </div>

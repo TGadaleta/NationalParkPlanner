@@ -18,7 +18,8 @@
     <label for="park">Park</label>
     <select name="park" id="park" required>
       <% parks.forEach(park => { %>
-      <option value="<%= park._id %>"<%= park._id.toString() === trip.park.toString() ? 'selected' : '' %>><%= park.name %></option> <!--Chat-GPT-->
+      <option value="<%= park._id %>" <%= park._id.toString() === trip.park.toString() ? 'selected' : '' %>><%= park.name %></option>
+      <!--Chat-GPT-->
       <% }); %>
     </select>
     <button type="submit">Update</button>
