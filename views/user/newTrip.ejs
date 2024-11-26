@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a New Trip</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a New Trip</title>
 </head>
+
 <body>
-    <h1>Create a New Trip</h1>
+  <%- include('../partials/nav.ejs') %>
+  <h1>Create a New Trip</h1>
+  <form action="/user/<%= user._id %>/trips" method="POST">
+    <label for="startDate">Start Date</label>
+    <input type="date" name="startDate" id="startDate" required>
+    <label for="end-date-1">End Date</label>
+    <input type="date" name="endDate" id="endDate" required>
+    <label for="park">Park</label>
+    <select name="park" id="park" required>
+      <% parks.forEach(park => { %>
+      <option value="<%= park._id %>"><%= park.name %></option>
+      <% }); %>
+    </select>
+    <button type="submit">Submit</button>
+  </form>
 </body>
+
 </html>

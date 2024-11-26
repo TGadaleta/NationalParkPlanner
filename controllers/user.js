@@ -1,6 +1,6 @@
 import express from "express";
 import methodOverride from "method-override";
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 
 import User from "../models/user.js";
 import Trip from "../models/trip.js";
@@ -13,8 +13,10 @@ router.use(methodOverride("_method"));
 //get user home page
 router.get("/:userId", async (req, res) => {
   try {
-    const favoriteParks = await User.findById(req.params.userId).select('favoriteParks').populate('favoriteParks')
-    res.render("user/index.ejs", {favoriteParks: favoriteParks});
+    const favoriteParks = await User.findById(req.params.userId)
+      .select("favoriteParks")
+      .populate("favoriteParks");
+    res.render("user/index.ejs", { favoriteParks: favoriteParks });
   } catch (error) {
     console.error(error);
     res.status(500).send("There was an error getting your profile");
@@ -34,57 +36,80 @@ router.get("/:userId/edit", (req, res) => {
 //get all user trips
 router.get("/:userId/trips", async (req, res) => {
   try {
-    res.render('user/trips.ejs')
+    res.render("user/trips.ejs");
   } catch (error) {
-    console.error(error)
-    res.status(500).send("There was an error getting your trips.")
+    console.error(error);
+    res.status(500).send("There was an error getting your trips.");
   }
-})
+});
 
-router.get('/:userId/trips/new', (req, res) => {
+router.get("/:userId/trips/new", async (req, res) => {
   try {
-    res.render('user/newTrip.ejs')
+    const parks = await Park.find({});
+    res.render("user/newTrip.ejs", { parks: parks });
   } catch (error) {
-    console.error(error)
-    res.status(500).send("There was an error getting the form.")
+    console.error(error);
+    res.status(500).send("There was an error getting the form.");
   }
-})
+});
+
+//POST
+router.post("/:userId/trips", async (req, res) => {
+  try {
+    const userId = req.session?.user?._id;
+    if (!userId) {
+      return res.status(401).send("Unauthorized: User not logged in.");
+    }
+    req.body.userId = userId
+    const park = await Park.findById(req.body.park);
+    if (!park) {
+      return res.status(401).send("There was an error finding the park in the database.")
+    }
+    req.body.cost = Number(park.entranceFee[0]);
+    const newTrip = await Trip.create(req.body);
+    res.redirect(`/user/${userId}/trips`);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("There was an error creating your trip.");
+  }
+});
 
 //PUT
 //update user information
 router.put("/:userId", async (req, res) => {
   try {
-
     const userId = req.session?.user?._id;
     if (!userId) {
-      return res.status(401).send("Unauthorized: User not logged in");
+      return res.status(401).send("Unauthorized: User not logged in.");
     }
 
     const currentUser = await User.findById(userId);
 
     const validPassword = bcrypt.compareSync(
-        req.body.password,
-        currentUser.password
-    )
+      req.body.password,
+      currentUser.password
+    );
     if (!validPassword) {
-        return res.send('Old password does not match.')
+      return res.send("Old password does not match.");
     }
 
     currentUser.email = req.body.email;
-    req.session.user.email = currentUser.email
-    
-    if (req.body.newPassword != '' && req.body.newPassword === req.body.confirmNewPassword){
-        const hashedPassword = bcrypt.hashSync(req.body.newPassword, 10);
-        currentUser.password = hashedPassword
+    req.session.user.email = currentUser.email;
+
+    if (
+      req.body.newPassword != "" &&
+      req.body.newPassword === req.body.confirmNewPassword
+    ) {
+      const hashedPassword = bcrypt.hashSync(req.body.newPassword, 10);
+      currentUser.password = hashedPassword;
     }
     await currentUser.save();
 
-    res.redirect(`/user/${userId}`)
+    res.redirect(`/user/${userId}`);
   } catch (error) {
     console.error(error);
     res.status(500).send("There was an error updating your user");
   }
 });
-
 
 export default router;
