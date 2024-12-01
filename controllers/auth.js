@@ -28,13 +28,28 @@ router.post("/sign-up", async (req, res) => {
     if (req.body.password !== req.body.confirmPassword) {
       return res.send("Passwords did not match.");
     }
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    if (!passwordRegex.test(req.body.password)){
+      throw new Error(`Password must be at least 8 characters long and include:
+      - At least one uppercase letter
+      - At least one lowercase letter
+      - At least one number
+      - At least one special character`);
+    }
     const hashedPassword = bcrypt.hashSync(req.body.password, 10);
     req.body.password = hashedPassword;
-    await User.create(req.body);
-    res.redirect(`/user/${userId}`);
+    const newUser = await User.create(req.body);
+    req.session.user = {
+      username: newUser.username,
+      _id: newUser._id,
+      email: newUser.email,
+      favoriteParks: newUser.favoriteParks,
+      plannedTrips: newUser.plannedTrips,
+    };
+    res.redirect(`/user/${req.session.user._id}`);
   } catch (error) {
     console.error(error);
-    res.redirect("/");
+    res.status(400).send(error.message);
   }
 });
 //post to sign in and create a session
