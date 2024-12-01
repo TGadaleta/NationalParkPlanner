@@ -9,6 +9,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const allParks = await Park.find({});
+    allParks.sort((a,b)=> a.name.localeCompare(b.name))
     res.render("parks/index.ejs", { parks: allParks });
   } catch (error) {
     console.error(error);

@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= user.username %>'s Trips</title>
+  <link rel="stylesheet" href="/stylesheets/styles.css" />
 </head>
 
 <body>
@@ -15,7 +16,7 @@
     <% plannedTrips.forEach((trip) => { %>
     <li>
       <a href="/user/<%= user._id %>/trips/<%= trip._id %>">Trip</a>
-      <span><%= trip.startDate %></span> to <span><%= trip.endDate %></span> @ <span><a href="/parks/<%= trip.park._id %>"><%= trip.park.name %></a></span><span> Cost: $<%= trip.cost %>.00</span>
+      <span><%= trip.startDate %> to <%= trip.endDate %> @ <a href="/parks/<%= trip.park._id %>"><%= trip.park.name %></a> in <%= trip.park.states %> Cost: $<%= trip.cost %>.00</span>
     </li>
     <% }) %>
   </div>

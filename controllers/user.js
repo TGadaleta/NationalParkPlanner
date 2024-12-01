@@ -54,6 +54,7 @@ router.get("/:userId/trips", async (req, res) => {
 router.get("/:userId/trips/new", async (req, res) => {
   try {
     const parks = await Park.find({});
+    parks.sort((a,b)=> a.name.localeCompare(b.name))
     res.render("user/newTrip.ejs", { parks });
   } catch (error) {
     console.error(error);
@@ -61,9 +62,11 @@ router.get("/:userId/trips/new", async (req, res) => {
   }
 });
 
+//get form to edit trip
 router.get("/:userId/trips/:tripId", async (req, res) => {
   try {
     const parks = await Park.find({});
+    parks.sort((a,b)=> a.name.localeCompare(b.name))
     const trip = await Trip.findById(req.params.tripId);
     res.render("user/editTrip.ejs", { parks, trip });
   } catch (error) {

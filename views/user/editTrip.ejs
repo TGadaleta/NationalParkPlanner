@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/styles.css" />
   <title>Edit a Trip</title>
 </head>
 
@@ -22,10 +23,10 @@
       <!--Chat-GPT-->
       <% }); %>
     </select>
-    <button type="submit">Update</button>
+    <button type="submit">Update Trip</button>
   </form>
   <form action="/user/<%= user._id %>/trips/<%= trip._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete</button>
+    <button type="submit">Delete Trip</button>
   </form>
 </body>
 
