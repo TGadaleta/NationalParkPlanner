@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/stylesheets/styles.css" />
+  <link rel="stylesheet" href="/stylesheets/parkstyles.css" />
   <title>All National Parks</title>
 </head>
 
@@ -16,7 +16,7 @@
       <% parks.forEach((park) => { %>
       <li>
         <a href="/parks/<%= park._id %>"><%= park.name %></a>
-        <span><%= park.designation %><%= park.states %><%= park.entranceFee %></span>
+        <div class="parkDetails"><span>Designation: <%= park.designation %></span><span> - States: <%= park.states %></span><span>  - Cost: $ <%= park.entranceFee %></span></div>
       </li>
       <% }) %>
     </ul>
