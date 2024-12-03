@@ -1,7 +1,7 @@
 # National Park Trip Planner
 
 ## Description
-This is a custom-built, digital version of the board game Battleship. In this version, both the user and the computer player place five ships of varying lengths randomly on a 10x10 grid. The players then take turns trying to guess the locations of each other's ships. The computer begins by guessing randomly until it makes a hit, after which it guesses strategically around the hit until the ship is destroyed. I chose this game as a challenge for my first project.
+The National Park Trip Planner is an app that allows the user to plan trips to any of the US National Parks. They can pick a park, a start date and an end date. They can also favorite parks to make them accessible from their homepage.
 
 #### URL:  [Game deployed on Heroku](https://national-park-trip-planner-46d300a02e57.herokuapp.com/)
 
@@ -11,7 +11,7 @@ This is a custom-built, digital version of the board game Battleship. In this ve
 * CSS
 * ChatGPT
 
-## Screenshot - Game Over
+## Screenshot - User Home Page
 
 ![Signed In Homepage](./assets/Signed%20In%20App%20Homepage.png 'Signed In Homepage')
 
@@ -39,9 +39,6 @@ A user can also view all National Parks by clicking on the Parks link in the nav
 * AAU, I want to be able to leave a comment on a Park page
 
 ## Development Process
-#### Overview
-
-The development of the Battleship game focused on building an interactive and enjoyable single-player experience. Key phases included planning, designing the game board, implementing game logic with a focus on an intelligent computer move strategy, and refining the project based on testing and user feedback.
 
 #### Phase 1: Planning
 1. Define Requirements:
@@ -51,6 +48,9 @@ The development of the Battleship game focused on building an interactive and en
 
     Set up separate files for EJS (views), CSS (styling), and JavaScript (backend logic).
     Outline the core functions needed for creating and editing an account, creating and editing a trip, and adding and removing favorite parks.
+3. Seeding Database:
+
+    Find and use the National Park Service API to seed my database with park information that is used in the app.
 
 #### Phase 2: Design
 1. UI/UX Design:
@@ -60,6 +60,7 @@ The development of the Battleship game focused on building an interactive and en
 
     Sketched out a layout for each page.
 3. ERD:
+![App ERD](./assets/Final%20App%20ERD.png 'App ERD')
 
 4. Routing Table:
 
@@ -84,30 +85,31 @@ The development of the Battleship game focused on building an interactive and en
 #### Phase 3: Implementation
 1. EJS Structure:
 
-    View for homepage
-2. 
-3. JavaScript Functionality:
+    View for each page
+2. JavaScript Functionality:
+
+    API and backed coding to handle routes and passing of data to each view.
+
+3. CSS Styling
+
+    Referenced Chat-GPT for basic styling design
 
     
 #### Phase 4: Testing and Refinement
 
 1. Initial Testing:
 
-    Tested each core function separately, including ship placement, player guess handling, and the computer’s
-    guess algorithm.
+    Make sure a trip could be created and that favorite parks could be added correctly.
+2. Editing Testing
 
-    Debugged issues related to the computer’s guessing, ensuring it didn’t make redundant moves or miss opportunities to sink ships.
-
-2. User Testing
-
-    Needed to make the players grid unclickable so that the games logic worked correctly.
+    Make sure a user, trip and favorite parks could be edited.
 
 #### Phase 5: Documentation and Deployment
 1. Documentation:
-
-    Added comments throughout the JavaScript code to explain the functionality of key sections, especially the intelligent computer move algorithm.
     
-    Wrote this README file to guide users through the game’s setup and explain the development process in detail.
+    Updated ERD and Route Table to reflect final project implementation.
+
+    Wrote this README file to guide users through the explination of the development process in detail.
 
 2. Deployment:
 
