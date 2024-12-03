@@ -63,7 +63,7 @@ The development of the Battleship game focused on building an interactive and en
 
 4. Routing Table:
 
-    | Name  | Endpoint   |  Purpose | Http Method   |
+| Name  | Endpoint   |  Purpose | Http Method   |
 |---    |---         |---        |---            |
 |Index  | /          | sign-in/sign up page | GET|
 |New User| /user/new | form for new user    | GET|
